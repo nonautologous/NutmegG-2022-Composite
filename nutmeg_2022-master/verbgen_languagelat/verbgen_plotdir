@@ -1,0 +1,26 @@
+#!/bin/csh
+
+if ( ( $# < 1 ) || ( $1 == '-help' ) ) then
+   echo
+   echo 'usage: verbgen_plotdir dataset.ds'
+   echo
+   exit
+endif
+
+mkdir voianalysis
+mkdir voianalysis/response
+mkdir voianalysis/stim
+
+cd voianalysis/response
+
+ln -s ../../$1/SAM/SAMresponse/temp/F* ./
+ln -s ../../$1/SAM/SAMresponse/temp/s_beamtf_verbgen1response.mat ./
+
+cd ../stim
+
+ln -s ../../$1/SAM/SAMstim/temp/F* ./
+ln -s ../../$1/SAM/SAMstim/temp/s_beamtf_verbgen2stim.mat ./
+
+cd ../../
+
+

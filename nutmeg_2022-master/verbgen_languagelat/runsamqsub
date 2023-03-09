@@ -1,0 +1,16 @@
+#!/bin/csh
+# 1st input is dataset; 2nd input is parameter file
+# I.e.,  ./samscript [ds] [param file] lowfreq hifreq -x +x -y +y -z +z
+
+#$ -l arch=lx24-x86
+#$ -q bil.q
+#$ -t 1
+#$ -q bil.q@tarka
+#$ -cwd
+#$ -j y
+#$ -r y
+
+hostname
+
+SAMcov -r $1  -f "$3 $4" -m $2 -v
+SAMsrc -r  $1 -c $2,$3-$4Hz -x "$5 $6" -y "$7 $8" -z "$9 $10" -s 0.5 -l 1 -D3 -p -n -v

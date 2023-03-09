@@ -1,0 +1,13 @@
+#!/bin/csh
+
+if ( ( $# < 1 ) || ( $1 == '-help' ) ) then
+   echo
+   echo 'usage: verbgen_clean dataset.ds'
+   echo
+   exit
+endif
+
+cd $1/SAM/
+mkdir SAMstim
+mv *ms* SAMstim
+

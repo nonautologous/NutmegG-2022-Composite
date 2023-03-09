@@ -1,0 +1,79 @@
+function VOIvoxels=nut_mni2languagevoi_lvPPA(s_beam_file_nm4)
+%function VOIvoxels=nut_mni2languagevoi(s_beam)
+%This program creates coordinates for each VOI used.
+%VOI1 is for STG + Supramarginal Gyrus
+%VOI2 is for Precentral, Middle and Inferior Frontal Gyri
+%
+%This program uses the rivets.MNIdb variable that is created when loading
+%data into the nut_resuts_viewer GUI. Nutmeg 4.6 uses rivets.Taldb and this
+%will have to be revised.
+% AMF 8/11/2015
+% Updated to use nut_results_viewer instead of nut_timef_viewer to be
+% compatible with nutmeg 4.1+
+
+nut_results_viewer(s_beam_file_nm4) %nut_timef_viewer no longer exists in nm4.1
+global rivets
+
+%Create VOI's (coordinates) for Left Angular (48), Left Mid Temporal (35), Left MId Occipital (31), Left Supramarginal (50)
+%for VOI_Left_1.mat which includes all gyri.
+
+%lvPPA
+VOIvoxels_Lang=nut_mni2voi(s_beam_file_nm4,3,48);
+rivets.MNIdb.cNames{3}(48)
+VOIvoxels=VOIvoxels_Lang;
+save VOIvoxels_Lang.mat VOIvoxels
+clear VOIvoxels;
+
+VOIvoxels_Lmt=nut_mni2voi(s_beam_file_nm4,3,35);
+rivets.MNIdb.cNames{3}(35)
+VOIvoxels=VOIvoxels_Lmt;
+save VOIvoxels_Lmt.mat VOIvoxels
+clear VOIvoxels;
+
+VOIvoxels_Lmo=nut_mni2voi(s_beam_file_nm4,3,31);
+rivets.MNIdb.cNames{3}(31)
+VOIvoxels=VOIvoxels_Lmo;
+save VOIvoxels_Lmo.mat VOIvoxels
+clear VOIvoxels;
+
+VOIvoxels_Lsmg=nut_mni2voi(s_beam_file_nm4,3,50);
+rivets.MNIdb.cNames{3}(50)
+VOIvoxels=VOIvoxels_Lsmg;
+save VOIvoxels_Lsmg.mat VOIvoxels
+clear VOIvoxels;
+
+%nfvPPA : could only find left IFG and left orbital
+VOIvoxels_Lifg=nut_mni2voi(s_beam_file_nm4,3,43);
+rivets.MNIdb.cNames{3}(43)
+VOIvoxels=VOIvoxels_Lifg;
+save VOIvoxels_Lifg.mat VOIvoxels
+clear VOIvoxels;
+
+VOIvoxels_Log=nut_mni2voi(s_beam_file_nm4,3,33);
+rivets.MNIdb.cNames{3}(33)
+VOIvoxels=VOIvoxels_Log;
+save VOIvoxels_Log.mat VOIvoxels
+clear VOIvoxels;
+
+%svPPA : could only find left superior and middle temporal gyri, which include the pole
+VOIvoxels_Lstg=nut_mni2voi(s_beam_file_nm4,3,37);
+rivets.MNIdb.cNames{3}(37)
+VOIvoxels=VOIvoxels_Log;
+save VOIvoxels_Lstg.mat VOIvoxels
+clear VOIvoxels;
+
+VOIvoxels_Lmtg=nut_mni2voi(s_beam_file_nm4,3,35);
+rivets.MNIdb.cNames{3}(35)
+VOIvoxels=VOIvoxels_Lmtg;
+save VOIvoxels_Lmtg.mat VOIvoxels
+clear VOIvoxels;
+
+%VOIvoxels=[VOIvoxels_Lang; VOIvoxels_Lmt; VOIvoxels_Lmo; VOIvoxels_Lsmg];
+%save VOI_Left_lvPPA.mat VOIvoxels
+%clear VOIvoxels;
+
+
+
+
+
+

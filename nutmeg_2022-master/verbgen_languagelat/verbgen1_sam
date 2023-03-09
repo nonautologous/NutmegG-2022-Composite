@@ -1,0 +1,21 @@
+#!/bin/csh
+
+if ( ( $# < 1 ) || ( $1 == '-help' ) ) then
+   echo
+   echo 'usage: verbgen1_sam dataset.ds'
+   echo
+   exit
+endif
+
+foreach i (`cd $VERBGENLANGUAGELAT_BASE/timeparams4sam/verbresponse; ls ??,*ms`)
+   cp $VERBGENLANGUAGELAT_BASE/timeparams4sam/verbresponse/$i $1/SAM/
+#   qsub -p -500 -N verbgenA $VERBGENLANGUAGELAT_BASE/runsamqsub $1 $i 4 12 -10 10 -8 8 1 13
+   qsub -p -500 -N verbgenB $VERBGENLANGUAGELAT_BASE/runsamqsub $1 $i 12 30 -10 10 -8 8 1 13
+   qsub -p -500 -N verbgenG $VERBGENLANGUAGELAT_BASE/runsamqsub $1 $i 30 55 -10 10 -8 8 1 13
+   qsub -p -500 -N verbgenHG1 $VERBGENLANGUAGELAT_BASE/runsamqsub $1 $i 65 90 -10 10 -8 8 1 13
+   qsub -p -500 -N verbgenHG2 $VERBGENLANGUAGELAT_BASE/runsamqsub $1 $i 90 115 -10 10 -8 8 1 13
+   qsub -p -500 -N verbgenHG3 $VERBGENLANGUAGELAT_BASE/runsamqsub $1 $i 125 150 -10 10 -8 8 1 13
+   qsub -p -500 -N verbgenHG4 $VERBGENLANGUAGELAT_BASE/runsamqsub $1 $i 150 175 -10 10 -8 8 1 13
+   qsub -p -500 -N verbgenHG5 $VERBGENLANGUAGELAT_BASE/runsamqsub $1 $i 185 300 -10 10 -8 8 1 13
+end
+
