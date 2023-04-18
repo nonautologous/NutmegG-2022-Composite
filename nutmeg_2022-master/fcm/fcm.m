@@ -16,7 +16,10 @@
 % 1. nutmeg                       Start NUTMEG and read in coregistration and data, calculate 
 %                                 lead field.
 % 2. nut_tfbf_gui  or  tfbf       Run a single-state time-frequency beamformer to obtain the 
-%                                 source dipole weights. 
+%                                 source dipole weights. (60 second
+%                                 reconstruction, butter or fir, 10 mm
+%                                 lead, time window 1000ms, 1000ms column
+%                                 norm, windowlenght 60000, step size 60000, bandpass 1-50
 %                                 Make sure to save the weight and filtered data outputs.  
 %
 % FCM workflow:

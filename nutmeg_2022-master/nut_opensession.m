@@ -21,7 +21,7 @@ if partial
     nuts=load(savedfile,'coreg','voxels','voxelsize','Lp','voxor');
     warning('on','MATLAB:load:variableNotFound');
 else
-    nuts=load('session_vgen_stim_nu2.mat', '-regexp','^(?!fig)...');
+    nuts=load(savedfile, '-regexp','^(?!fig)...');
 end
 if isfield(nuts,'nuts')
     nuts=nuts.nuts;

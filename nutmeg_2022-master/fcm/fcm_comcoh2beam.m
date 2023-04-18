@@ -29,7 +29,7 @@ switch fuse.connection
             case 'All'
                 meanfun = 'fcm_comcohA2meanbeam';
                 Lfun    = 'fcm_comcohA2Lbeam';
-            case {'Selected' 'Selected+Contralateral'}
+            case {'Selected' 'Selected+Contralateral' 'Contralateral'}
                 meanfun = 'fcm_comcohS2meanbeam';
                 if ~isempty(strmatch('L',fuse.output,'exact')) && ~strcmpi(fuse.seed,'Selected+Contralateral')
                     warning('fcm:noLimage','L-images can only be computed with seed voxels set to ''All'' or ''Selected+Contralateral''');
