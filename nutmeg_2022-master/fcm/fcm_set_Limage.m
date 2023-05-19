@@ -112,12 +112,12 @@ if ~exist('tumorvoxels.mat','file')
     nut_close;
 else
     disp('Loading tumor region defined previously.')
-    load tumorvoxels
+    VOIvoxels=load('tumorvoxels.mat')
 end
 
 % This is a strange but fast way of finding tumor voxels, works only for 8mm
 % voxelsize!
-TV=unique(floor(VOIvoxels/4),'rows');
+TV=unique(floor(VOIvoxels.MEGvoxels/4),'rows');
 rvoxels=round(voxels);
 
 f=find(~rem(TV(:,1),2) | ~rem(TV(:,2),2) | ~rem(TV(:,3),2));

@@ -224,7 +224,7 @@ catch ME
 end    
 index = 1:ns;
 for k=1:nbt
-    tmp = fft(wdw .* repmat(detrend(meg.data(index,:)),[1 1 numtaper]), nfft, 1); 
+    tmp = fft(wdw .* repmat(detrend(meg.data(index,:,:)),[1 1 numtaper]), nfft, 1); 
     FF(:,:,:,k) = tmp(select,:,:);
     index = index + stp; 
 end

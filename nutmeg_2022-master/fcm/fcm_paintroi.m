@@ -31,7 +31,9 @@ end
 if isfield(nuts,'coreg')
     fcm_roiidx(roi);
 end
-
+R=load(fuse.roidef)
+roi.label=R.label
+roi.nr=length(voxels)
 [filename, pathname] = uiputfile('*.mat', 'Save painted ROI? (Cancel otherwise)'); 
 if ~(isequal(filename,0) && ~isequal(pathname,0))
     save(fullfile(pathname, filename),'-struct','roi');

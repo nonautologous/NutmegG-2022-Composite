@@ -1,5 +1,5 @@
-function varargout = nut_results_viewer(varargin)
-% nut_results_viewernu M-file for nut_results_viewernu.fig
+function varargout = nut_results_viewerN(varargin)
+% NUT_RESULTS_VIEWER M-file for nut_results_viewer.fig
 %
 
 % Last Modified by GUIDE v2.5 13-Jun-2012 10:42:59
@@ -8,7 +8,7 @@ function varargout = nut_results_viewer(varargin)
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to nut_results_viewernu (see VARARGIN)
+% varargin   command line arguments to nut_results_viewer (see VARARGIN)
 
 if(~strcmp('14',version('-release')))
     warning('off')  % hack so warning for "created by matlab 7.0" is turned off
@@ -17,8 +17,8 @@ end
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
     'gui_Singleton',  gui_Singleton, ...
-    'gui_OpeningFcn', @nut_results_viewernu_OpeningFcn, ...
-    'gui_OutputFcn',  @nut_results_viewernu_OutputFcn, ...
+    'gui_OpeningFcn', @nut_results_viewer_OpeningFcn, ...
+    'gui_OutputFcn',  @nut_results_viewer_OutputFcn, ...
     'gui_LayoutFcn',  [] , ...
     'gui_Callback',   []);
 if nargin & ischar(varargin{1})
@@ -36,10 +36,10 @@ warning('off','MATLAB:FINITE:obsoleteFunction'); % but not this one
                                                  % about SPM2
 
 %%---------------------------------------------------
-function nut_results_viewernu_OpeningFcn(hObject, eventdata, handles, varargin)
-% --- Executes just before nut_results_viewernu is made visible.
+function nut_results_viewer_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before nut_results_viewer is made visible.
 
-% Choose default command line output for nut_results_viewernu
+% Choose default command line output for nut_results_viewer
 handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
@@ -106,7 +106,7 @@ if exist(upath,'file') || exist([upath '.mat'],'file')
     clear beampathname dum
 else
     delete(hObject), delete(barhandle)
-    error('nut_results_viewernu: Invalid filename.')
+    error('NUT_RESULTS_VIEWER: Invalid filename.')
 end
 set(hObject,'Name',['NUTMEG Results Viewer - ' rivets.beamfilename]);
 
@@ -114,7 +114,7 @@ set(hObject,'Name',['NUTMEG Results Viewer - ' rivets.beamfilename]);
 beam=nut_beam_legacy_compatibility(beam);
 if ~isfield(beam,'s')
     delete(hObject), delete(barhandle)
-    error('nut_results_viewernu: Not a valid s_beam file or pointer file.')
+    error('NUT_RESULTS_VIEWER: Not a valid s_beam file or pointer file.')
 end
 % evoked results did not previously have bands field, now required
 if(~isfield(beam,'bands'))
@@ -361,7 +361,7 @@ end
 
 
 %%---------------------------------------------------
-function varargout = nut_results_viewernu_OutputFcn(hObject, eventdata, handles)
+function varargout = nut_results_viewer_OutputFcn(hObject, eventdata, handles)
 if(isfield(handles,'output'))  % prevents crashing if s_beam loading cancelled
     varargout{1} = handles.output;
 end
@@ -932,7 +932,7 @@ set(hObject,'String','Animate');
 
 
 %%-----------------------------------------------
-function nut_results_viewernu_CloseRequestFcn(hObject, eventdata, handles)
+function nut_results_viewer_CloseRequestFcn(hObject, eventdata, handles)
 % --- Executes during object deletion, before destroying properties.
 global rivets st beam corrs;
 
@@ -957,7 +957,7 @@ answer   = inputdlg(prompt,title,lines,def);
 
 axes(handles.nut_ts_axes); hold on;
 time = -225+.4992511:(0.4992511):450;
-plot(time,erpdat3(str2num(cell2mat(answer)),:).^2/3600,'r');
+plot(time,erpdat3(str2num(cell2num(answer)),:).^2/3600,'r');
 hold off;
 return;
 
@@ -2083,59 +2083,59 @@ switch styleselect
     case 'Normal Style'
         set(handles.nut_ts_axes,'FontUnits','points','LineWidth',2,'FontName','Helvetica','FontWeight','bold','FontSize',12,'Color',[1 1 1],'XColor',[0 0 0],'YColor',[0 0 0]);  %changes time series axes numbers font
         set(handles.nut_megts_axes,'FontUnits','points','LineWidth',2,'FontName','Helvetica','FontWeight','bold','FontSize',12,'Color',[1 1 1],'XColor',[0 0 0],'YColor',[0 0 0]);  %changes time series axes numbers font
-        set(handles.nut_results_viewernu,'Color',[1 1 1]);
-        %         set(handles.nut_results_viewernu,'Color',[.93 .93 .92]);  %color of background of whole figure
-        set(cell2mat(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',12,'Color',[0 0 0]);  %changes time series axes label
-        set(cell2mat(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',12,'Color',[0 0 0]);  %changes time series axes label
+        set(handles.nut_results_viewer,'Color',[1 1 1]);
+        %         set(handles.nut_results_viewer,'Color',[.93 .93 .92]);  %color of background of whole figure
+        set(cell2num(get(handles.nut_ts_axes,{'XLabel','YLabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',12,'Color',[0 0 0]);  %changes time series axes label
+        set(cell2num(get(handles.nut_megts_axes,{'XLabel','YLabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',12,'Color',[0 0 0]);  %changes time series axes label
         % set(handles.nut_blobstyle,'Value',1);
     case 'Poster Style (Color)'
         set(handles.nut_ts_axes,'FontUnits','points','LineWidth',2,'FontName','Helvetica','FontWeight','bold','FontSize',18,'Color',[1 1 1],'XColor',[0 0 0],'YColor',[0 0 0]);%changes time series axes numbers font
         set(handles.nut_megts_axes,'FontUnits','points','LineWidth',2,'FontName','Helvetica','FontWeight','bold','FontSize',18,'Color',[1 1 1],'XColor',[0 0 0],'YColor',[0 0 0]);%changes time series axes numbers font
-        set(handles.nut_results_viewernu,'Color',[1 1 1]);
-        set(cell2mat(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',18);%changes time series axes label
-        set(cell2mat(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',18);%changes time series axes label
+        set(handles.nut_results_viewer,'Color',[1 1 1]);
+        set(cell2num(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',18);%changes time series axes label
+        set(cell2num(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',18);%changes time series axes label
         % set(handles.nut_blobstyle,'Value',2);
     case 'Poster Style (Color2)'
         set(handles.nut_ts_axes,'FontUnits','points','LineWidth',2,'FontName','Helvetica','FontWeight','bold','FontSize',18,'Color',[1 1 1],'XColor',[0 0 0],'YColor',[0 0 0]);%changes time series axes numbers font
         set(handles.nut_megts_axes,'FontUnits','points','LineWidth',2,'FontName','Helvetica','FontWeight','bold','FontSize',18,'Color',[1 1 1],'XColor',[0 0 0],'YColor',[0 0 0]);%changes time series axes numbers font
-        set(handles.nut_results_viewernu,'Color',[1 1 1]);
-        set(cell2mat(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',18);%changes time series axes label
-        set(cell2mat(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',18);%changes time series axes label
+        set(handles.nut_results_viewer,'Color',[1 1 1]);
+        set(cell2num(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',18);%changes time series axes label
+        set(cell2num(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',18);%changes time series axes label
         set(handles.nut_blobstyle,'Value',1);
     case 'Poster Style (Monochrome)'
         set(handles.nut_ts_axes,'FontUnits','points','LineWidth',2,'FontName','Helvetica','FontWeight','bold','FontSize',18,'Color',[1 1 1],'XColor',[0 0 0],'YColor',[0 0 0]);%changes time series axes numbers font
         set(handles.nut_megts_axes,'FontUnits','points','LineWidth',2,'FontName','Helvetica','FontWeight','bold','FontSize',18,'Color',[1 1 1],'XColor',[0 0 0],'YColor',[0 0 0]);%changes time series axes numbers font
-        set(handles.nut_results_viewernu,'Color',[1 1 1]);
-        set(cell2mat(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',18);%changes time series axes label
-        set(cell2mat(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',18);%changes time series axes label
+        set(handles.nut_results_viewer,'Color',[1 1 1]);
+        set(cell2num(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',18);%changes time series axes label
+        set(cell2num(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',18);%changes time series axes label
         set(handles.nut_blobstyle,'Value',1);
     case 'Presentation Style'
         set(handles.nut_ts_axes,'FontUnits','points','LineWidth',2,'FontName','Helvetica','FontWeight','bold','FontSize',15,'Color',[0 0 0],'XColor',[1 1 0],'YColor',[1 1 0]);  %changes time series axes numbers font
         set(handles.nut_megts_axes,'FontUnits','points','LineWidth',2,'FontName','Helvetica','FontWeight','bold','FontSize',15,'Color',[0 0 0],'XColor',[1 1 0],'YColor',[1 1 0]);  %changes time series axes numbers font
-        set(handles.nut_results_viewernu,'Color',[0 0 0]);
-        set(cell2mat(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',15,'Color',[1 1 0]);  %changes time series axes label
-        set(cell2mat(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',15,'Color',[1 1 0]);  %changes time series axes label
+        set(handles.nut_results_viewer,'Color',[0 0 0]);
+        set(cell2num(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',15,'Color',[1 1 0]);  %changes time series axes label
+        set(cell2num(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',15,'Color',[1 1 0]);  %changes time series axes label
         %         set(handles.nut_blobstyle,'Value',2);
     case {'Paper Style (Color)'}
         set(handles.nut_ts_axes,'FontUnits','points','LineWidth',1,'FontName','Times','FontWeight','bold','FontSize',15,'Color',[1 1 1],'XColor',[0 0 0],'YColor',[0 0 0]);  %changes time series axes numbers font
         set(handles.nut_megts_axes,'FontUnits','points','LineWidth',1,'FontName','Times','FontWeight','bold','FontSize',15,'Color',[1 1 1],'XColor',[0 0 0],'YColor',[0 0 0]);  %changes time series axes numbers font
-        set(handles.nut_results_viewernu,'Color',[1 1 1]);
-        set(cell2mat(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Times','FontWeight','bold','FontSize',15);  %changes time series axes label
-        set(cell2mat(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Times','FontWeight','bold','FontSize',15);  %changes time series axes label
+        set(handles.nut_results_viewer,'Color',[1 1 1]);
+        set(cell2num(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Times','FontWeight','bold','FontSize',15);  %changes time series axes label
+        set(cell2num(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Times','FontWeight','bold','FontSize',15);  %changes time series axes label
         set(handles.nut_blobstyle,'Value',2);
     case 'Paper Style (Monochrome)'
         set(handles.nut_ts_axes,'FontUnits','points','LineWidth',1,'FontName','Times','FontWeight','bold','FontSize',15,'Color',[1 1 1],'XColor',[0 0 0],'YColor',[0 0 0]);  %changes time series axes numbers font
         set(handles.nut_megts_axes,'FontUnits','points','LineWidth',1,'FontName','Times','FontWeight','bold','FontSize',15,'Color',[1 1 1],'XColor',[0 0 0],'YColor',[0 0 0]);  %changes time series axes numbers font
-        set(handles.nut_results_viewernu,'Color',[1 1 1]);
-        set(cell2mat(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Times','FontWeight','bold','FontSize',15);  %changes time series axes label
-        set(cell2mat(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Times','FontWeight','bold','FontSize',15);  %changes time series axes label
+        set(handles.nut_results_viewer,'Color',[1 1 1]);
+        set(cell2num(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Times','FontWeight','bold','FontSize',15);  %changes time series axes label
+        set(cell2num(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Times','FontWeight','bold','FontSize',15);  %changes time series axes label
         set(handles.nut_blobstyle,'Value',1);
     case 'SAM Style'   % jfh
         set(handles.nut_ts_axes,'FontUnits','points','LineWidth',2,'FontName','Helvetica','FontWeight','bold','FontSize',12,'Color',[1 1 1],'XColor',[0 0 0],'YColor',[0 0 0]);  %changes time series axes numbers font
         set(handles.nut_megts_axes,'FontUnits','points','LineWidth',2,'FontName','Helvetica','FontWeight','bold','FontSize',12,'Color',[1 1 1],'XColor',[0 0 0],'YColor',[0 0 0]);  %changes time series axes numbers font
-        set(handles.nut_results_viewernu,'Color',[.93 .93 .92]);  %color of background of whole figure
-        set(cell2mat(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',12,'Color',[0 0 0]);  %changes time series axes label
-        set(cell2mat(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',12,'Color',[0 0 0]);  %changes time series axes label
+        set(handles.nut_results_viewer,'Color',[.93 .93 .92]);  %color of background of whole figure
+        set(cell2num(get(handles.nut_ts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',12,'Color',[0 0 0]);  %changes time series axes label
+        set(cell2num(get(handles.nut_megts_axes,{'Xlabel','Ylabel'})),'FontUnits','points','FontName','Helvetica','FontWeight','bold','FontSize',12,'Color',[0 0 0]);  %changes time series axes label
 
         mytargintens = 0.7;
         myncolsteps = 64;
@@ -2161,7 +2161,7 @@ switch styleselect
         set(rivets.fig,'ColorMap',mycolmap);
 end
 
-set(handles.nut_ts_axes,'ButtonDownFcn','nut_results_viewernu(''nut_ts_axes_ButtonDownFcn'',gcbf,[],guidata(gcbf))');
+set(handles.nut_ts_axes,'ButtonDownFcn','nut_results_viewer(''nut_ts_axes_ButtonDownFcn'',gcbf,[],guidata(gcbf))');
 % we have to put this here, because MATLAB kicks it out each time we plot something
 % in the axes...
 
@@ -2353,18 +2353,18 @@ switch get(hObject,'Value')
             errordlg('You have to create a spatial normalization first (click on "Spatially normalize".')
             set(hObject,'Value',0)
         else
-            nut_results_viewernu(norm_sbeamname);
+            nut_results_viewer(norm_sbeamname);
         end
     case 0
         sbeamfile=rivets.beampath;
         f=strfind(sbeamfile,'_spatnorm');
         if ~isempty(f)
             sbeamfile(f:f+8)=[];
-            nut_results_viewernu(sbeamfile);
+            nut_results_viewer(sbeamfile);
         end
 end
 %clear global rivets beam
-%nut_results_viewernu(norm_sbeamname)
+%nut_results_viewer(norm_sbeamname)
 %uiwait
 
 % global rivets beam
@@ -2987,7 +2987,7 @@ if ~isempty(idx)
     if strcmp(rivets.voi.pathnames{idx},rivets.beampath)
         errordlg('File is already open.')
     else
-        nut_results_viewernu(rivets.voi.pathnames{idx})
+        nut_results_viewer(rivets.voi.pathnames{idx})
     end
 else
     [filename,pathname]=uigetfile('s_beam*.mat','Load beamforming activations...');
@@ -3003,7 +3003,7 @@ else
         rivets.voi.coords(k).MEG(end+1,:)=rivets.voi.coords(k).MEG(end,:);
         rivets.voi.coords(k).index(:,end+1)=rivets.voi.coords(k).index(:,end);
     end
-    nut_results_viewernu(pathname)
+    nut_results_viewer(pathname)
 end
 
 
@@ -3429,7 +3429,7 @@ if get(hObject,'Value')
     elseif exist('CC','var') 
         if ~isfield(CC,'method'), CC.method='ccohere'; end
     else
-        error('nut_results_viewernu: Invalid connection file.')
+        error('NUT_RESULTS_VIEWER: Invalid connection file.')
     end
     if size(CC.coh,1)==size(CC.frq,1)     
         CC.coh=permute(CC.coh,[2 3 1]); 
