@@ -4,7 +4,7 @@ function roi = fcm_paintroi
 %   roi = fcm_paintroi
 %
 
-global nuts st
+global nuts st fuse
 
 if isempty(findobj('tag','nutmegfig'))
     if isempty(nuts)

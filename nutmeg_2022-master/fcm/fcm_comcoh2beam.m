@@ -90,7 +90,7 @@ if ~isempty(wfile) && ~strcmpi(fuse.seed,'Extracerebral') && any(strcmp(fuse.fun
     CC=fcm_correctspatialleakage(CC,W); clear W
     [pa,fi,dum]=fileparts(comcohfile);
     comcohfile = fullfile(pa,[fi 'C']);
-    save(comcohfile,'CC'), clear CC
+    save(comcohfile,'CC','-v7.3'), clear CC
     produceoutput(meanfun,Lfun,comcohfile)
 end
     

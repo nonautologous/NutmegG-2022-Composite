@@ -506,7 +506,7 @@ if useroi
 end
 
 if ~exist('ccohere','dir'), mkdir ccohere, end
-save(fullfile('ccohere',['CC' chfile(2:end)]),'CC')
+save(fullfile('ccohere',['CC' chfile(2:end)]),'CC','-v7.3')
 
 fprintf('Done (sccohere31).\n')
 tempus=toc;
