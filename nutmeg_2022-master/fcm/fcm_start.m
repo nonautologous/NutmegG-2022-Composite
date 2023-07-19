@@ -44,6 +44,8 @@ if nargin==2
     fclose(fid);
     fprintf('New default file is %s.\n',varargin{setdiff([1 2],flagidx)})
 end
+fuse.seed='Selected+Contralateral'
+fuse.output={'L'}
 
 fuse
    
