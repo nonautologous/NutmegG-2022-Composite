@@ -117,7 +117,11 @@ end
 
 % This is a strange but fast way of finding tumor voxels, works only for 8mm
 % voxelsize!
-TV=unique(floor(VOIvoxels.MEGvoxels/4),'rows');
+if isfield(VOIvoxels,'MEGvoxels')
+    TV=unique(floor(VOIvoxels.MEGvoxels/4),'rows');
+else 
+    TV=unique(floor(VOIvoxels.VOIvoxels/4),'rows');
+end
 rvoxels=round(voxels);
 
 f=find(~rem(TV(:,1),2) | ~rem(TV(:,2),2) | ~rem(TV(:,3),2));

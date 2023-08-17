@@ -86,7 +86,8 @@ for v=1:length(tuv)
     p(v) = 2*tcdf(-abs(T(v)), numconn-1);
 end
 
-load coreg
+global nuts
+coreg=nuts.coreg
 fd=(600/512)/2;
 
 beam.timepts=mean(t)*1000;
